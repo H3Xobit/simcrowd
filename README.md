@@ -84,7 +84,7 @@ python evals/run_evals.py --smoke 20
 
 ## Why this project is interesting
 
-- Joint-distribution sampling instead of independent demographic vibes
+- Joint-distribution sampling instead of independent demographic draws
 - Position-bias controls and attention checks built into the runner
 - Numbers never come from the LLM (VW + segment counts are pandas)
 - Reality validation published as a first-class product surface
