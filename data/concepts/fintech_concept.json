@@ -1,0 +1,24 @@
+{
+  "id": "study_fintech_concept",
+  "type": "concept_test",
+  "concept_id": "fintech_pulse",
+  "title": "Pulse Budget concept test",
+  "questions": [
+    {
+      "id": "q_interest",
+      "text": "After reading the landing copy, how interested are you?",
+      "type": "single",
+      "options": ["Not at all", "Slightly", "Moderately", "Very", "Extremely"]
+    },
+    {
+      "id": "q_objection",
+      "text": "What is your strongest objection to signing up?",
+      "type": "open"
+    },
+    {
+      "id": "q_open",
+      "text": "What would make this a yes for you?",
+      "type": "open"
+    }
+  ]
+}

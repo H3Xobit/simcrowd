@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-07-13T05:55:01.613755+00:00",
+  "n": 20,
+  "panel_max_marginal_error": 0.0241,
+  "consistency_rate": 1.0,
+  "attention_pass_rate": 0.8,
+  "report_verification_ok": true,
+  "reproducible": true,
+  "pew_mean_mae": 0.0762,
+  "pew_directional_agreement_rate": 0.75,
+  "cost_per_study_usd": 0.04,
+  "latency_s": 0.177
+}

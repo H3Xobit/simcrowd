@@ -1,0 +1,110 @@
+{
+  "id": "study_fintech_survey",
+  "type": "survey",
+  "concept_id": "fintech_pulse",
+  "title": "Pulse Budget concept survey",
+  "questions": [
+    {
+      "id": "q_interest",
+      "text": "How interested are you in an app that texts before you overspend?",
+      "type": "single",
+      "options": [
+        "Not at all",
+        "Slightly",
+        "Moderately",
+        "Very",
+        "Extremely"
+      ]
+    },
+    {
+      "id": "q_trust",
+      "text": "How comfortable are you linking a budgeting app to your checking account?",
+      "type": "single",
+      "options": [
+        "Very uncomfortable",
+        "Uncomfortable",
+        "Neutral",
+        "Comfortable",
+        "Very comfortable"
+      ]
+    },
+    {
+      "id": "q_pay",
+      "text": "What would you pay monthly for this?",
+      "type": "single",
+      "options": [
+        "$0",
+        "$5",
+        "$12",
+        "$20",
+        "$35+"
+      ]
+    },
+    {
+      "id": "q_attn",
+      "text": "To confirm you are paying attention, select Moderately.",
+      "type": "single",
+      "options": [
+        "Not at all",
+        "Slightly",
+        "Moderately",
+        "Very",
+        "Extremely"
+      ],
+      "attention_check": "Moderately"
+    },
+    {
+      "id": "q_vw_cheap",
+      "text": "At what monthly price is this too cheap to trust?",
+      "type": "van_westendorp",
+      "options": [
+        "0",
+        "5",
+        "12",
+        "20",
+        "35"
+      ]
+    },
+    {
+      "id": "q_vw_bargain",
+      "text": "At what monthly price is this a bargain?",
+      "type": "van_westendorp",
+      "options": [
+        "0",
+        "5",
+        "12",
+        "20",
+        "35"
+      ]
+    },
+    {
+      "id": "q_vw_expensive",
+      "text": "At what monthly price is this getting expensive?",
+      "type": "van_westendorp",
+      "options": [
+        "0",
+        "5",
+        "12",
+        "20",
+        "35"
+      ]
+    },
+    {
+      "id": "q_vw_too_expensive",
+      "text": "At what monthly price is this too expensive?",
+      "type": "van_westendorp",
+      "options": [
+        "0",
+        "5",
+        "12",
+        "20",
+        "35"
+      ]
+    },
+    {
+      "id": "q_open",
+      "text": "What is your biggest hesitation?",
+      "type": "open"
+    }
+  ]
+}

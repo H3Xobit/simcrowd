@@ -1,0 +1,39 @@
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE IF NOT EXISTS panels (
+  id TEXT PRIMARY KEY,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  seed INT NOT NULL,
+  size INT NOT NULL,
+  metadata JSONB NOT NULL DEFAULT '{}'::jsonb
+);
+
+CREATE TABLE IF NOT EXISTS personas (
+  id TEXT PRIMARY KEY,
+  panel_id TEXT NOT NULL REFERENCES panels(id),
+  attributes JSONB NOT NULL,
+  backstory TEXT NOT NULL,
+  embedding vector(384)
+);
+
+CREATE TABLE IF NOT EXISTS studies (
+  id TEXT PRIMARY KEY,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  panel_id TEXT NOT NULL,
+  spec JSONB NOT NULL,
+  status TEXT NOT NULL DEFAULT 'queued'
+);
+
+CREATE TABLE IF NOT EXISTS responses (
+  id BIGSERIAL PRIMARY KEY,
+  study_id TEXT NOT NULL,
+  persona_id TEXT NOT NULL,
+  payload JSONB NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS reports (
+  id TEXT PRIMARY KEY,
+  study_id TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  report JSONB NOT NULL
+);

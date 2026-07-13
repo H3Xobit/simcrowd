@@ -1,0 +1,15 @@
+{
+  "id": "meal_hearth",
+  "name": "Hearth Kit",
+  "category": "meal-kit",
+  "landing_url": "https://example.com/hearth-kit",
+  "tagline": "30-minute regional dinners with grocery-store pickup.",
+  "price_points": [
+    0,
+    8,
+    11,
+    14,
+    18
+  ],
+  "copy": "Hearth Kit plans dinners from local produce and stages a pickup tote at your usual store."
+}

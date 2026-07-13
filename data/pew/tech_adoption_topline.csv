@@ -1,0 +1,15 @@
+question_id,option,pct
+tech_phone_check,Several times an hour,28
+tech_phone_check,Several times a day,41
+tech_phone_check,About once a day,14
+tech_phone_check,Less often,17
+tech_ai_interest,Very interested,18
+tech_ai_interest,Somewhat interested,37
+tech_ai_interest,Not too interested,24
+tech_ai_interest,Not at all interested,21
+tech_privacy_worry,Very worried,31
+tech_privacy_worry,Somewhat worried,42
+tech_privacy_worry,Not too worried,18
+tech_privacy_worry,Not at all worried,9
+tech_social_daily,Yes,54
+tech_social_daily,No,46

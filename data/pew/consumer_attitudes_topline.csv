@@ -1,0 +1,11 @@
+question_id,option,pct
+fin_emergency_400,Yes,56
+fin_emergency_400,No,44
+fin_budget_track,Yes,49
+fin_budget_track,No,51
+fin_fintech_trust,A great deal,12
+fin_fintech_trust,A fair amount,38
+fin_fintech_trust,Not much,33
+fin_fintech_trust,Not at all,17
+fin_save_monthly,Yes,61
+fin_save_monthly,No,39

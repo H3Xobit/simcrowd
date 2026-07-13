@@ -1,0 +1,15 @@
+{
+  "id": "fintech_pulse",
+  "name": "Pulse Budget",
+  "category": "fintech",
+  "landing_url": "https://example.com/pulse-budget",
+  "tagline": "Automatic cashflow coaching that texts you before you overspend.",
+  "price_points": [
+    0,
+    5,
+    12,
+    20,
+    35
+  ],
+  "copy": "Pulse Budget connects to your checking account, predicts bill spikes, and nudges you 24 hours early."
+}

@@ -1,0 +1,15 @@
+{
+  "id": "shipguard",
+  "name": "ShipGuard",
+  "category": "developer-tool",
+  "landing_url": "https://example.com/shipguard",
+  "tagline": "PR risk scores grounded in your incident history.",
+  "price_points": [
+    0,
+    15,
+    29,
+    49,
+    99
+  ],
+  "copy": "ShipGuard ranks pull requests by blast radius using your past incidents and ownership map."
+}
