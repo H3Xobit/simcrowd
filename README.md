@@ -34,6 +34,14 @@ CI smoke: 20-persona mini-panel, unit tests, Next.js build, compose health + stu
 6. **Validates** against Pew topline CSVs transcribed into `data/pew/`.
 7. **Serves** FastAPI (`/panels`, `/studies`, `/reports/{id}`, `/scorecard`) and a Next.js studio UI.
 
+
+
+## Preview
+
+![SimCrowd landing](docs/images/landing-hero.png)
+
+![SimCrowd studio and Pew scorecard](docs/images/studio-scorecard.png)
+
 ## Architecture
 
 ```mermaid
