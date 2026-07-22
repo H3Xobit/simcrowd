@@ -111,3 +111,25 @@ def get_scorecard() -> dict[str, Any]:
     if not path.exists():
         raise HTTPException(404, "run pew_bench first")
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+@app.get("/concepts")
+def list_concepts() -> list[dict[str, Any]]:
+    """Return bundled product concepts available for studies."""
+    root = Path("data/concepts")
+    out: list[dict[str, Any]] = []
+    for path in sorted(root.glob("*.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        out.append(
+            {
+                "path": path.as_posix(),
+                "id": data.get("id") or path.stem,
+                "title": data.get("title") or data.get("name") or path.stem,
+                "type": data.get("type") or "concept",
+            }
+        )
+    return out
+

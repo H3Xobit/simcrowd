@@ -21,6 +21,7 @@ export default function StudioPage() {
   const [study, setStudy] = useState<StudySummary | null>(null);
   const [report, setReport] = useState<ReportRow | null>(null);
   const [scorecard, setScorecard] = useState<Scorecard | null>(null);
+  const [concepts, setConcepts] = useState<ConceptRow[]>(DEMO_CONCEPTS);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [visible, setVisible] = useState(0);
@@ -34,6 +35,7 @@ export default function StudioPage() {
         setStudy(DEMO_STUDY);
         setReport(DEMO_REPORT);
         setScorecard(DEMO_SCORECARD);
+        setConcepts(DEMO_CONCEPTS);
         return;
       }
       setMode("live");
@@ -65,6 +67,7 @@ export default function StudioPage() {
         setStudy(DEMO_STUDY);
         setReport(DEMO_REPORT);
         setScorecard(DEMO_SCORECARD);
+        setConcepts(DEMO_CONCEPTS);
         return;
       }
       const panelRes = await fetch(`${apiBase()}/panels?size=40&seed=42`, { method: "POST" });
@@ -111,6 +114,21 @@ export default function StudioPage() {
         </button>
       </div>
       {error && <p className="text-sm text-red-400">{error}</p>}
+
+
+      <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
+        <h2 className="mb-3 font-display text-xl text-white">Bundled concepts</h2>
+        <div className="flex flex-wrap gap-2">
+          {concepts.map((c) => (
+            <span
+              key={c.id}
+              className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-300"
+            >
+              {c.title} · {c.type}
+            </span>
+          ))}
+        </div>
+      </section>
 
       <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
         <h2 className="mb-4 font-display text-xl text-white">Panel assembling</h2>
