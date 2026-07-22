@@ -144,3 +144,32 @@ export const DEMO_EVAL = {
   cost_per_study_usd: 0.04,
   latency_s: 0.4,
 };
+
+
+export type ConceptRow = {
+  path: string;
+  id: string;
+  title: string;
+  type: string;
+};
+
+export const DEMO_CONCEPTS: ConceptRow[] = [
+  {
+    path: "data/concepts/fintech_survey.json",
+    id: "study_fintech_survey",
+    title: "Pulse Budget concept survey",
+    type: "survey",
+  },
+  {
+    path: "data/concepts/fintech_interview.json",
+    id: "study_fintech_interview",
+    title: "Pulse Budget depth interviews",
+    type: "interview",
+  },
+  {
+    path: "data/concepts/mealkit.json",
+    id: "mealkit",
+    title: "Meal kit concept",
+    type: "concept",
+  },
+];
