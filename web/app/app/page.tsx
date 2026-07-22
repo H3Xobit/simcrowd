@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { apiBase, apiHealthy } from "@/lib/api";
 import {
+  DEMO_CONCEPTS,
   DEMO_PERSONAS,
   DEMO_REPORT,
   DEMO_SCORECARD,
   DEMO_STUDY,
+  type ConceptRow,
   type PersonaCard,
   type ReportRow,
   type Scorecard,
