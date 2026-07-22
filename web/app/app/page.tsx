@@ -24,6 +24,7 @@ export default function StudioPage() {
   const [report, setReport] = useState<ReportRow | null>(null);
   const [scorecard, setScorecard] = useState<Scorecard | null>(null);
   const [concepts, setConcepts] = useState<ConceptRow[]>(DEMO_CONCEPTS);
+  const [selectedConcept, setSelectedConcept] = useState<string>(DEMO_CONCEPTS[0]?.path || "data/concepts/fintech_survey.json");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [visible, setVisible] = useState(0);
@@ -75,7 +76,7 @@ export default function StudioPage() {
       const panelRes = await fetch(`${apiBase()}/panels?size=40&seed=42`, { method: "POST" });
       if (!panelRes.ok) throw new Error(`panels ${panelRes.status}`);
       const studyRes = await fetch(
-        `${apiBase()}/studies?spec_path=data/concepts/fintech_survey.json&seed=42`,
+        `${apiBase()}/studies?spec_path=${encodeURIComponent(selectedConcept)}&seed=42`,
         { method: "POST" },
       );
       if (!studyRes.ok) throw new Error(`studies ${studyRes.status}`);
@@ -121,14 +122,23 @@ export default function StudioPage() {
       <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
         <h2 className="mb-3 font-display text-xl text-white">Bundled concepts</h2>
         <div className="flex flex-wrap gap-2">
-          {concepts.map((c) => (
-            <span
-              key={c.id}
-              className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-300"
-            >
-              {c.title} · {c.type}
-            </span>
-          ))}
+          {concepts.map((c) => {
+            const active = selectedConcept === c.path;
+            return (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => setSelectedConcept(c.path)}
+                className={`rounded-full border px-3 py-1 text-xs transition ${
+                  active
+                    ? "border-accent bg-accent/20 text-white"
+                    : "border-white/[0.06] text-zinc-300 hover:border-accent/40"
+                }`}
+              >
+                {c.title} · {c.type}
+              </button>
+            );
+          })}
         </div>
       </section>
 
