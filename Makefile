@@ -42,3 +42,9 @@ demo: setup
 	$(PYTHON) -m simcrowd.validation.pew_bench --panel artifacts/personas.jsonl --out artifacts/pew_scorecard.json
 	$(PYTHON) evals/run_evals.py --smoke 20
 	@echo "Demo artifacts in ./artifacts"
+
+
+scorecard-seed:
+	mkdir -p artifacts
+	cp data/pew/sample_scorecard.json artifacts/pew_scorecard.json
+	@echo "Seeded artifacts/pew_scorecard.json"

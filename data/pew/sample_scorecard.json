@@ -1,0 +1,39 @@
+{
+  "mean_mae": 0.12,
+  "mean_js": 0.04,
+  "directional_agreement_rate": 0.75,
+  "questions": [
+    {
+      "question_id": "tech_ai_interest",
+      "mae": 0.09,
+      "js": 0.03,
+      "directional_agreement": true,
+      "truth_top": "Somewhat interested",
+      "synth_top": "Somewhat interested"
+    },
+    {
+      "question_id": "tech_privacy_worry",
+      "mae": 0.11,
+      "js": 0.04,
+      "directional_agreement": true,
+      "truth_top": "Somewhat worried",
+      "synth_top": "Somewhat worried"
+    },
+    {
+      "question_id": "fin_emergency_400",
+      "mae": 0.18,
+      "js": 0.06,
+      "directional_agreement": false,
+      "truth_top": "Yes",
+      "synth_top": "No"
+    },
+    {
+      "question_id": "tech_social_daily",
+      "mae": 0.1,
+      "js": 0.03,
+      "directional_agreement": true,
+      "truth_top": "Yes",
+      "synth_top": "Yes"
+    }
+  ]
+}

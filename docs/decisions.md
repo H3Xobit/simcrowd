@@ -10,3 +10,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-07-13 | Langfuse optional / deferred in compose | Keep M3 self-contained; cost logged as estimate in offline mode
 - 2026-07-13 | Verifier counts hot interest over full cited persona_id lists | Keep cited counts recomputable 1:1 from raw responses
 - 2026-07-13 | Stratified PPS quotas on age_bin x region x education x income_bin | Keeps whole-record joints while meeting the 3pp marginal realism unit test at n=200
+
+- 2026-07-23 | Bundle data/pew/sample_scorecard.json and fall back from GET /scorecard | Compose and Pages demos can show a scorecard before make validate runs
