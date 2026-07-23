@@ -107,10 +107,30 @@ def get_report(report_id: str) -> dict[str, Any]:
 
 @app.get("/scorecard")
 def get_scorecard() -> dict[str, Any]:
+    """Prefer live validate output; fall back to bundled sample for demos."""
     path = ARTIFACTS / "pew_scorecard.json"
-    if not path.exists():
-        raise HTTPException(404, "run pew_bench first")
-    return json.loads(path.read_text(encoding="utf-8"))
+    sample = Path("data/pew/sample_scorecard.json")
+    if path.exists():
+        data = json.loads(path.read_text(encoding="utf-8"))
+        data["source"] = "artifacts"
+        return data
+    if sample.exists():
+        data = json.loads(sample.read_text(encoding="utf-8"))
+        data["source"] = "sample"
+        return data
+    raise HTTPException(404, "run make validate or ship data/pew/sample_scorecard.json")
+
+
+@app.post("/scorecard/seed")
+def seed_scorecard() -> dict[str, Any]:
+    """Copy bundled sample scorecard into artifacts for compose demos."""
+    sample = Path("data/pew/sample_scorecard.json")
+    if not sample.exists():
+        raise HTTPException(404, "sample scorecard missing")
+    ARTIFACTS.mkdir(exist_ok=True)
+    out = ARTIFACTS / "pew_scorecard.json"
+    out.write_text(sample.read_text(encoding="utf-8"), encoding="utf-8")
+    return {"path": str(out), "source": "sample"}
 
 
 @app.get("/concepts")

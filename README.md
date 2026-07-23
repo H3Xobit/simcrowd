@@ -82,6 +82,9 @@ Then:
 ```bash
 make test
 python evals/run_evals.py --smoke 20
+make validate
+# or seed a sample scorecard for API demos:
+make scorecard-seed
 ```
 
 ## Data notes
