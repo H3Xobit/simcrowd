@@ -43,6 +43,18 @@ export default function StudioPage() {
       }
       setMode("live");
       setPersonas(DEMO_PERSONAS);
+      try {
+        const cres = await fetch(`${apiBase()}/concepts`);
+        if (cres.ok) setConcepts(await cres.json());
+      } catch {
+        setConcepts(DEMO_CONCEPTS);
+      }
+      try {
+        const sc = await fetch(`${apiBase()}/scorecard`);
+        if (sc.ok) setScorecard(await sc.json());
+      } catch {
+        setScorecard(DEMO_SCORECARD);
+      }
     })();
   }, []);
 
@@ -85,6 +97,12 @@ export default function StudioPage() {
       const reportRes = await fetch(`${apiBase()}/reports/${studyJson.report_id}`);
       if (reportRes.ok) setReport(await reportRes.json());
       setPersonas(DEMO_PERSONAS);
+      try {
+        const sc = await fetch(`${apiBase()}/scorecard`);
+        if (sc.ok) setScorecard(await sc.json());
+      } catch {
+        /* keep existing scorecard */
+      }
     } catch (e) {
       setError(String(e));
       setMode("demo");
@@ -191,7 +209,7 @@ export default function StudioPage() {
           <h2 className="font-display text-xl text-white">Pew scorecard snapshot</h2>
           {!scorecard && (
             <p className="mt-3 text-sm text-zinc-500">
-              Showcase includes a scorecard sample. Live runs: `make validate`.
+              Showcase includes a scorecard sample. Live mode loads GET /scorecard (sample fallback or make validate).
             </p>
           )}
           {scorecard && (
