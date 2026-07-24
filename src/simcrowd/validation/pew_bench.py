@@ -124,11 +124,45 @@ def scorecard(synthetic: dict[str, dict[str, float]], truth: dict[str, dict[str,
     }
 
 
+
+def scorecard_to_csv(card: dict) -> str:
+    """Serialize scorecard question rows to CSV text."""
+    import csv
+    import io
+
+    buf = io.StringIO()
+    writer = csv.DictWriter(
+        buf,
+        fieldnames=[
+            "question_id",
+            "mae",
+            "js",
+            "directional_agreement",
+            "truth_top",
+            "synth_top",
+        ],
+    )
+    writer.writeheader()
+    for row in card.get("questions") or []:
+        writer.writerow(
+            {
+                "question_id": row.get("question_id", ""),
+                "mae": row.get("mae", ""),
+                "js": row.get("js", ""),
+                "directional_agreement": row.get("directional_agreement", ""),
+                "truth_top": row.get("truth_top", ""),
+                "synth_top": row.get("synth_top", ""),
+            }
+        )
+    return buf.getvalue()
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--panel", type=Path, required=True)
     parser.add_argument("--out", type=Path, default=Path("artifacts/pew_scorecard.json"))
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--csv", type=Path, default=None, help="optional CSV output path")
     args = parser.parse_args()
     truth = {}
     truth.update(load_topline(Path("data/pew/tech_adoption_topline.csv")))
@@ -137,11 +171,15 @@ def main() -> None:
     card = scorecard(synth, truth)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(card, indent=2), encoding="utf-8")
+    if args.csv is not None:
+        args.csv.parent.mkdir(parents=True, exist_ok=True)
+        args.csv.write_text(scorecard_to_csv(card), encoding="utf-8")
     print(json.dumps({
         "mean_mae": card["mean_mae"],
         "mean_js": card["mean_js"],
         "directional_agreement_rate": card["directional_agreement_rate"],
         "out": str(args.out),
+        **({"csv": str(args.csv)} if args.csv is not None else {}),
     }))
 
 

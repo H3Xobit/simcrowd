@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from simcrowd import __version__
@@ -17,6 +18,7 @@ from simcrowd.research.compiler import load_spec
 from simcrowd.research.runner import load_personas, run_study
 from simcrowd.settings import get_settings
 from simcrowd.synthesis.report import build_report
+from simcrowd.validation.pew_bench import scorecard_to_csv
 
 app = FastAPI(title="SimCrowd API", version=__version__)
 app.add_middleware(
@@ -152,4 +154,10 @@ def list_concepts() -> list[dict[str, Any]]:
             }
         )
     return out
+
+@app.get("/scorecard.csv", response_class=PlainTextResponse)
+def get_scorecard_csv() -> str:
+    """CSV export of the active Pew scorecard question rows."""
+    data = get_scorecard()
+    return scorecard_to_csv(data)
 

@@ -3,7 +3,7 @@ COMPOSE ?= docker compose
 export PYTHONPATH := src
 export SC_OFFLINE_LLM ?= 1
 
-.PHONY: help setup test lint up down demo build-panel run-study validate eval
+.PHONY: help setup test lint up down demo build-panel run-study validate eval scorecard-csv scorecard-seed
 
 help:
 	@echo "SimCrowd: setup test demo build-panel run-study validate eval"
@@ -48,3 +48,8 @@ scorecard-seed:
 	mkdir -p artifacts
 	cp data/pew/sample_scorecard.json artifacts/pew_scorecard.json
 	@echo "Seeded artifacts/pew_scorecard.json"
+
+
+scorecard-csv:
+	$(PYTHON) -m simcrowd.validation.pew_bench --panel $${PANEL:-artifacts/personas.jsonl} --out artifacts/pew_scorecard.json --csv artifacts/pew_scorecard.csv
+	@echo "Wrote artifacts/pew_scorecard.csv"
