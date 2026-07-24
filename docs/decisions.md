@@ -12,3 +12,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-07-13 | Stratified PPS quotas on age_bin x region x education x income_bin | Keeps whole-record joints while meeting the 3pp marginal realism unit test at n=200
 
 - 2026-07-23 | Bundle data/pew/sample_scorecard.json and fall back from GET /scorecard | Compose and Pages demos can show a scorecard before make validate runs
+
+- 2026-07-24 | Add scorecard CSV via pew_bench --csv and GET /scorecard.csv | Easy table refresh for validation writeups
