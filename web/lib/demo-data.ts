@@ -173,3 +173,26 @@ export const DEMO_CONCEPTS: ConceptRow[] = [
     type: "concept",
   },
 ];
+
+
+export function scorecardToCsv(card: Scorecard): string {
+  const header = [
+    "question_id",
+    "mae",
+    "js",
+    "directional_agreement",
+    "truth_top",
+    "synth_top",
+  ].join(",");
+  const rows = card.questions.map((q) =>
+    [
+      q.question_id,
+      q.mae,
+      q.js,
+      q.directional_agreement,
+      JSON.stringify(q.truth_top),
+      JSON.stringify(q.synth_top ?? ""),
+    ].join(","),
+  );
+  return [header, ...rows].join("\n") + "\n";
+}
