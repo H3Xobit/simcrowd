@@ -9,6 +9,7 @@ import {
   DEMO_REPORT,
   DEMO_SCORECARD,
   DEMO_STUDY,
+  scorecardToCsv,
   type ConceptRow,
   type PersonaCard,
   type ReportRow,
@@ -115,6 +116,36 @@ export default function StudioPage() {
     }
   }
 
+
+  async function downloadScorecardCsv() {
+    try {
+      if (mode === "live") {
+        const res = await fetch(`${apiBase()}/scorecard.csv`);
+        if (res.ok) {
+          const text = await res.text();
+          const blob = new Blob([text], { type: "text/csv;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "pew_scorecard.csv";
+          a.click();
+          URL.revokeObjectURL(url);
+          return;
+        }
+      }
+      const source = scorecard || DEMO_SCORECARD;
+      const blob = new Blob([scorecardToCsv(source)], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "pew_scorecard.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      setError(String(e));
+    }
+  }
+
   return (
     <main className="mx-auto max-w-6xl space-y-6 px-6 py-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -206,7 +237,16 @@ export default function StudioPage() {
         </section>
 
         <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
-          <h2 className="font-display text-xl text-white">Pew scorecard snapshot</h2>
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="font-display text-xl text-white">Pew scorecard snapshot</h2>
+            <button
+              type="button"
+              onClick={downloadScorecardCsv}
+              className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-300 hover:border-accent hover:text-accent"
+            >
+              Download CSV
+            </button>
+          </div>
           {!scorecard && (
             <p className="mt-3 text-sm text-zinc-500">
               Showcase includes a scorecard sample. Live mode loads GET /scorecard (sample fallback or make validate).

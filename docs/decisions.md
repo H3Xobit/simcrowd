@@ -14,3 +14,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-07-23 | Bundle data/pew/sample_scorecard.json and fall back from GET /scorecard | Compose and Pages demos can show a scorecard before make validate runs
 
 - 2026-07-24 | Add scorecard CSV via pew_bench --csv and GET /scorecard.csv | Easy table refresh for validation writeups
+
+- 2026-07-27 | Studio Download CSV uses live /scorecard.csv with client-side demo fallback | Closes the remaining scorecard export UX gap
