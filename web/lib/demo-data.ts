@@ -33,6 +33,7 @@ export type Scorecard = {
   mean_mae: number;
   mean_js: number;
   directional_agreement_rate: number;
+  source?: "sample" | "artifacts" | "demo";
   questions: {
     question_id: string;
     mae: number;
@@ -92,6 +93,7 @@ export const DEMO_REPORT: ReportRow = {
 };
 
 export const DEMO_SCORECARD: Scorecard = {
+  source: "demo",
   mean_mae: 0.12,
   mean_js: 0.04,
   directional_agreement_rate: 0.75,
