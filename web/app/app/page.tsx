@@ -238,7 +238,18 @@ export default function StudioPage() {
 
         <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="font-display text-xl text-white">Pew scorecard snapshot</h2>
+            <div className="flex items-center gap-2">
+              <h2 className="font-display text-xl text-white">Pew scorecard snapshot</h2>
+              <span className="rounded-full border border-white/[0.06] px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-400">
+                {mode === "demo"
+                  ? "demo"
+                  : scorecard?.source === "artifacts"
+                    ? "artifacts"
+                    : scorecard?.source === "sample"
+                      ? "sample"
+                      : "live"}
+              </span>
+            </div>
             <button
               type="button"
               onClick={downloadScorecardCsv}
