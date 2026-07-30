@@ -25,7 +25,18 @@ export default function StudioPage() {
   const [report, setReport] = useState<ReportRow | null>(null);
   const [scorecard, setScorecard] = useState<Scorecard | null>(null);
   const [concepts, setConcepts] = useState<ConceptRow[]>(DEMO_CONCEPTS);
-  const [selectedConcept, setSelectedConcept] = useState<string>(DEMO_CONCEPTS[0]?.path || "data/concepts/fintech_survey.json");
+  const [selectedConcept, setSelectedConcept] = useState<string>(() => {
+    if (typeof window === "undefined") {
+      return DEMO_CONCEPTS[0]?.path || "data/concepts/fintech_survey.json";
+    }
+    try {
+      const saved = window.localStorage.getItem("sc.selectedConcept");
+      if (saved) return saved;
+    } catch {
+      /* ignore */
+    }
+    return DEMO_CONCEPTS[0]?.path || "data/concepts/fintech_survey.json";
+  });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [visible, setVisible] = useState(0);
@@ -58,6 +69,22 @@ export default function StudioPage() {
       }
     })();
   }, []);
+
+
+  useEffect(() => {
+    if (!concepts.length) return;
+    const stillValid = concepts.some((c) => c.path === selectedConcept);
+    if (!stillValid) {
+      const fallback = concepts[0]?.path || "data/concepts/fintech_survey.json";
+      setSelectedConcept(fallback);
+      return;
+    }
+    try {
+      window.localStorage.setItem("sc.selectedConcept", selectedConcept);
+    } catch {
+      /* ignore quota / private mode */
+    }
+  }, [concepts, selectedConcept]);
 
   useEffect(() => {
     if (!personas.length) return;

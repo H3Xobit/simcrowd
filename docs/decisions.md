@@ -18,3 +18,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-07-27 | Studio Download CSV uses live /scorecard.csv with client-side demo fallback | Closes the remaining scorecard export UX gap
 
 - 2026-07-29 | Show scorecard source badge in studio (demo/sample/artifacts) | Makes validate vs bundled fallback obvious in the UI
+
+- 2026-07-30 | Persist studio concept selection in localStorage | Keeps last concept across refreshes with invalid-path fallback
