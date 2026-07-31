@@ -173,6 +173,17 @@ export default function StudioPage() {
     }
   }
 
+
+  function resetConceptSelection() {
+    try {
+      window.localStorage.removeItem("sc.selectedConcept");
+    } catch {
+      /* ignore */
+    }
+    const fallback = concepts[0]?.path || DEMO_CONCEPTS[0]?.path || "data/concepts/fintech_survey.json";
+    setSelectedConcept(fallback);
+  }
+
   return (
     <main className="mx-auto max-w-6xl space-y-6 px-6 py-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -197,7 +208,7 @@ export default function StudioPage() {
 
       <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
         <h2 className="mb-3 font-display text-xl text-white">Bundled concepts</h2>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {concepts.map((c) => {
             const active = selectedConcept === c.path;
             return (
@@ -215,6 +226,13 @@ export default function StudioPage() {
               </button>
             );
           })}
+          <button
+            type="button"
+            onClick={resetConceptSelection}
+            className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-500 transition hover:border-accent/40 hover:text-zinc-300"
+          >
+            Reset
+          </button>
         </div>
       </section>
 
