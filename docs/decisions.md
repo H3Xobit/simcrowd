@@ -22,3 +22,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-07-30 | Persist studio concept selection in localStorage | Keeps last concept across refreshes with invalid-path fallback
 
 - 2026-07-31 | Reset control clears saved concept preference | Restores default concept chip after localStorage persist
+
+- 2026-08-03 | Persist studio panel size in localStorage | Remembers 20/40/80 choice across refreshes with invalid-value fallback

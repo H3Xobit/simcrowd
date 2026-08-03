@@ -18,6 +18,22 @@ import {
 } from "@/lib/demo-data";
 import { fadeUp, stagger } from "@/lib/motion";
 
+const PANEL_SIZES = [20, 40, 80] as const;
+const DEFAULT_PANEL_SIZE = 40;
+
+function readPanelSize(): number {
+  if (typeof window === "undefined") return DEFAULT_PANEL_SIZE;
+  try {
+    const raw = window.localStorage.getItem("sc.panelSize");
+    if (!raw) return DEFAULT_PANEL_SIZE;
+    const n = Number(raw);
+    if (PANEL_SIZES.includes(n as (typeof PANEL_SIZES)[number])) return n;
+  } catch {
+    /* ignore */
+  }
+  return DEFAULT_PANEL_SIZE;
+}
+
 export default function StudioPage() {
   const [mode, setMode] = useState<"checking" | "live" | "demo">("checking");
   const [personas, setPersonas] = useState<PersonaCard[]>([]);
@@ -40,6 +56,20 @@ export default function StudioPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [visible, setVisible] = useState(0);
+  const [panelSize, setPanelSize] = useState<number>(() => readPanelSize());
+
+  useEffect(() => {
+    if (!PANEL_SIZES.includes(panelSize as (typeof PANEL_SIZES)[number])) {
+      setPanelSize(DEFAULT_PANEL_SIZE);
+      return;
+    }
+    try {
+      window.localStorage.setItem("sc.panelSize", String(panelSize));
+    } catch {
+      /* ignore quota / private mode */
+    }
+  }, [panelSize]);
+
 
   useEffect(() => {
     (async () => {
@@ -113,7 +143,7 @@ export default function StudioPage() {
         setConcepts(DEMO_CONCEPTS);
         return;
       }
-      const panelRes = await fetch(`${apiBase()}/panels?size=40&seed=42`, { method: "POST" });
+      const panelRes = await fetch(`${apiBase()}/panels?size=${panelSize}&seed=42`, { method: "POST" });
       if (!panelRes.ok) throw new Error(`panels ${panelRes.status}`);
       const studyRes = await fetch(
         `${apiBase()}/studies?spec_path=${encodeURIComponent(selectedConcept)}&seed=42`,
@@ -237,7 +267,29 @@ export default function StudioPage() {
       </section>
 
       <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
-        <h2 className="mb-4 font-display text-xl text-white">Panel assembling</h2>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-xl text-white">Panel assembling</h2>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs uppercase tracking-wide text-zinc-500">Size</span>
+            {PANEL_SIZES.map((n) => {
+              const active = panelSize === n;
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setPanelSize(n)}
+                  className={`rounded-full border px-3 py-1 text-xs transition ${
+                    active
+                      ? "border-accent bg-accent/20 text-white"
+                      : "border-white/[0.06] text-zinc-300 hover:border-accent/40"
+                  }`}
+                >
+                  {n}
+                </button>
+              );
+            })}
+          </div>
+        </div>
         <motion.div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" variants={stagger} initial="hidden" animate="show">
           {personas.slice(0, visible).map((p) => (
             <motion.div
