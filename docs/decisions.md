@@ -24,3 +24,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-07-31 | Reset control clears saved concept preference | Restores default concept chip after localStorage persist
 
 - 2026-08-03 | Persist studio panel size in localStorage | Remembers 20/40/80 choice across refreshes with invalid-value fallback
+
+- 2026-08-04 | Show panel size in study metrics | Surfaces last-run size with current preference fallback

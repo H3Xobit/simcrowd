@@ -70,6 +70,8 @@ export default function StudioPage() {
     }
   }, [panelSize]);
 
+  const [lastRunPanelSize, setLastRunPanelSize] = useState<number | null>(null);
+
 
   useEffect(() => {
     (async () => {
@@ -141,6 +143,7 @@ export default function StudioPage() {
         setReport(DEMO_REPORT);
         setScorecard(DEMO_SCORECARD);
         setConcepts(DEMO_CONCEPTS);
+        setLastRunPanelSize(panelSize);
         return;
       }
       const panelRes = await fetch(`${apiBase()}/panels?size=${panelSize}&seed=42`, { method: "POST" });
@@ -155,6 +158,7 @@ export default function StudioPage() {
       const reportRes = await fetch(`${apiBase()}/reports/${studyJson.report_id}`);
       if (reportRes.ok) setReport(await reportRes.json());
       setPersonas(DEMO_PERSONAS);
+      setLastRunPanelSize(panelSize);
       try {
         const sc = await fetch(`${apiBase()}/scorecard`);
         if (sc.ok) setScorecard(await sc.json());
@@ -316,21 +320,24 @@ export default function StudioPage() {
         <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
           <h2 className="font-display text-xl text-white">Study metrics</h2>
           {!study && <p className="mt-3 text-sm text-zinc-500">Run a study to populate metrics.</p>}
-          {study && (
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              {[
-                ["n", String(study.n)],
-                ["attention", study.attention_pass_rate.toFixed(2)],
-                ["consistency", study.consistency_rate.toFixed(2)],
-                ["cost USD", study.cost_usd.toFixed(3)],
-              ].map(([k, v]) => (
-                <div key={k} className="rounded-2xl border border-white/[0.06] bg-ink-elevated p-4">
-                  <div className="text-xs uppercase text-zinc-500">{k}</div>
-                  <div className="mt-1 font-mono text-xl text-accent">{v}</div>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            {[
+              ["panel size", String(lastRunPanelSize ?? panelSize)],
+              ...(study
+                ? ([
+                    ["n", String(study.n)],
+                    ["attention", study.attention_pass_rate.toFixed(2)],
+                    ["consistency", study.consistency_rate.toFixed(2)],
+                    ["cost USD", study.cost_usd.toFixed(3)],
+                  ] as [string, string][])
+                : []),
+            ].map(([k, v]) => (
+              <div key={k} className="rounded-2xl border border-white/[0.06] bg-ink-elevated p-4">
+                <div className="text-xs uppercase text-zinc-500">{k}</div>
+                <div className="mt-1 font-mono text-xl text-accent">{v}</div>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
