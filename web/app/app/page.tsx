@@ -321,19 +321,28 @@ export default function StudioPage() {
           <h2 className="font-display text-xl text-white">Study metrics</h2>
           {!study && <p className="mt-3 text-sm text-zinc-500">Run a study to populate metrics.</p>}
           <div className="mt-4 grid grid-cols-2 gap-3">
-            {[
-              ["panel size", String(lastRunPanelSize ?? panelSize)],
-              ...(study
-                ? ([
-                    ["n", String(study.n)],
-                    ["attention", study.attention_pass_rate.toFixed(2)],
-                    ["consistency", study.consistency_rate.toFixed(2)],
-                    ["cost USD", study.cost_usd.toFixed(3)],
-                  ] as [string, string][])
-                : []),
-            ].map(([k, v]) => (
+            {(
+              [
+                {
+                  k: "panel size",
+                  v: String(lastRunPanelSize ?? panelSize),
+                  sub: lastRunPanelSize == null ? "preference" : "last run",
+                },
+                ...(study
+                  ? [
+                      { k: "n", v: String(study.n) },
+                      { k: "attention", v: study.attention_pass_rate.toFixed(2) },
+                      { k: "consistency", v: study.consistency_rate.toFixed(2) },
+                      { k: "cost USD", v: study.cost_usd.toFixed(3) },
+                    ]
+                  : []),
+              ] as { k: string; v: string; sub?: string }[]
+            ).map(({ k, v, sub }) => (
               <div key={k} className="rounded-2xl border border-white/[0.06] bg-ink-elevated p-4">
                 <div className="text-xs uppercase text-zinc-500">{k}</div>
+                {sub && (
+                  <div className="mt-0.5 text-[10px] uppercase tracking-wide text-zinc-600">{sub}</div>
+                )}
                 <div className="mt-1 font-mono text-xl text-accent">{v}</div>
               </div>
             ))}
