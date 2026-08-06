@@ -28,3 +28,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-08-04 | Show panel size in study metrics | Surfaces last-run size with current preference fallback
 
 - 2026-08-05 | Label panel size as preference vs last run | Clarifies whether metrics show chip selection or completed run
+
+- 2026-08-06 | Note next-run panel size when chips differ from last run | Keeps last-run value while surfacing the upcoming size

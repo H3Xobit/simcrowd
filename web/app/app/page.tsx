@@ -327,6 +327,10 @@ export default function StudioPage() {
                   k: "panel size",
                   v: String(lastRunPanelSize ?? panelSize),
                   sub: lastRunPanelSize == null ? "preference" : "last run",
+                  note:
+                    lastRunPanelSize != null && lastRunPanelSize !== panelSize
+                      ? `next run uses ${panelSize}`
+                      : undefined,
                 },
                 ...(study
                   ? [
@@ -336,14 +340,17 @@ export default function StudioPage() {
                       { k: "cost USD", v: study.cost_usd.toFixed(3) },
                     ]
                   : []),
-              ] as { k: string; v: string; sub?: string }[]
-            ).map(({ k, v, sub }) => (
+              ] as { k: string; v: string; sub?: string; note?: string }[]
+            ).map(({ k, v, sub, note }) => (
               <div key={k} className="rounded-2xl border border-white/[0.06] bg-ink-elevated p-4">
                 <div className="text-xs uppercase text-zinc-500">{k}</div>
                 {sub && (
                   <div className="mt-0.5 text-[10px] uppercase tracking-wide text-zinc-600">{sub}</div>
                 )}
-                <div className="mt-1 font-mono text-xl text-accent">{v}</div>
+                <div className={`mt-1 font-mono text-xl ${note ? "text-zinc-400" : "text-accent"}`}>{v}</div>
+                {note && (
+                  <div className="mt-1 text-[10px] uppercase tracking-wide text-accent">{note}</div>
+                )}
               </div>
             ))}
           </div>
