@@ -30,3 +30,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-08-05 | Label panel size as preference vs last run | Clarifies whether metrics show chip selection or completed run
 
 - 2026-08-06 | Note next-run panel size when chips differ from last run | Keeps last-run value while surfacing the upcoming size
+
+- 2026-08-07 | Keyboard [/] cycles studio panel size chips | Matches chip selection and localStorage persistence without using the mouse

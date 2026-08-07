@@ -208,6 +208,28 @@ export default function StudioPage() {
   }
 
 
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName?.toLowerCase();
+      if (tag === "input" || tag === "textarea" || target?.isContentEditable) return;
+      if (e.key !== "[" && e.key !== "]") return;
+      e.preventDefault();
+      setPanelSize((current) => {
+        const idx = PANEL_SIZES.indexOf(current as (typeof PANEL_SIZES)[number]);
+        const base = idx < 0 ? 0 : idx;
+        const next =
+          e.key === "]"
+            ? (base + 1) % PANEL_SIZES.length
+            : (base - 1 + PANEL_SIZES.length) % PANEL_SIZES.length;
+        return PANEL_SIZES[next];
+      });
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   function resetConceptSelection() {
     try {
       window.localStorage.removeItem("sc.selectedConcept");
@@ -274,7 +296,10 @@ export default function StudioPage() {
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-display text-xl text-white">Panel assembling</h2>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs uppercase tracking-wide text-zinc-500">Size</span>
+            <span className="text-xs uppercase tracking-wide text-zinc-500">
+              Size{" "}
+              <span className="font-mono normal-case text-zinc-600">[/]</span>
+            </span>
             {PANEL_SIZES.map((n) => {
               const active = panelSize === n;
               return (
