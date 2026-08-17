@@ -230,6 +230,16 @@ export default function StudioPage() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+
+  function resetPanelSize() {
+    try {
+      window.localStorage.removeItem("sc.panelSize");
+    } catch {
+      /* ignore */
+    }
+    setPanelSize(DEFAULT_PANEL_SIZE);
+  }
+
   function resetConceptSelection() {
     try {
       window.localStorage.removeItem("sc.selectedConcept");
@@ -317,6 +327,13 @@ export default function StudioPage() {
                 </button>
               );
             })}
+            <button
+              type="button"
+              onClick={resetPanelSize}
+              className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-500 transition hover:border-accent/40 hover:text-zinc-300"
+            >
+              Reset
+            </button>
           </div>
         </div>
         <motion.div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" variants={stagger} initial="hidden" animate="show">
