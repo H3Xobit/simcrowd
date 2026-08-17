@@ -34,3 +34,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-08-07 | Keyboard [/] cycles studio panel size chips | Matches chip selection and localStorage persistence without using the mouse
 
 - 2026-08-17 | Reset control for saved panel size preference | Clears sc.panelSize and restores default size 40
+
+- 2026-08-18 | Hint under concept Reset control | Makes clear that Reset clears the saved concept preference

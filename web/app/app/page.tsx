@@ -300,6 +300,9 @@ export default function StudioPage() {
             Reset
           </button>
         </div>
+        <p className="mt-2 text-[10px] uppercase tracking-wide text-zinc-600">
+          Reset clears the saved concept
+        </p>
       </section>
 
       <section className="rounded-2xl border border-white/[0.06] bg-ink-surface p-5">
