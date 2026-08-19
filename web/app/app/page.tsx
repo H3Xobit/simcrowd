@@ -262,11 +262,11 @@ export default function StudioPage() {
           </p>
         </div>
         <button
-          disabled={busy}
+          disabled={busy || mode === "checking"}
           onClick={runDemoFlow}
           className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-white shadow-accent disabled:opacity-50"
         >
-          {busy ? "Running..." : "Run Pulse Budget survey"}
+          {busy ? "Running..." : mode === "checking" ? "Checking API..." : "Run Pulse Budget survey"}
         </button>
       </div>
       {error && <p className="text-sm text-red-400">{error}</p>}

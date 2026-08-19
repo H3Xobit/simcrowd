@@ -36,3 +36,5 @@ Format: `YYYY-MM-DD | decision | why`
 - 2026-08-17 | Reset control for saved panel size preference | Clears sc.panelSize and restores default size 40
 
 - 2026-08-18 | Hint under concept Reset control | Makes clear that Reset clears the saved concept preference
+
+- 2026-08-19 | Disable Run while API health check is pending | Avoids starting a flow before live vs demo mode settles
