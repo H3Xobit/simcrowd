@@ -215,6 +215,7 @@ export default function StudioPage() {
       const tag = target?.tagName?.toLowerCase();
       if (tag === "input" || tag === "textarea" || target?.isContentEditable) return;
       if (e.key !== "[" && e.key !== "]") return;
+      if (busy) return;
       e.preventDefault();
       setPanelSize((current) => {
         const idx = PANEL_SIZES.indexOf(current as (typeof PANEL_SIZES)[number]);
@@ -228,7 +229,7 @@ export default function StudioPage() {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [busy]);
 
 
   function resetPanelSize() {
@@ -281,8 +282,9 @@ export default function StudioPage() {
               <button
                 key={c.id}
                 type="button"
+                disabled={busy}
                 onClick={() => setSelectedConcept(c.path)}
-                className={`rounded-full border px-3 py-1 text-xs transition ${
+                className={`rounded-full border px-3 py-1 text-xs transition disabled:opacity-50 ${
                   active
                     ? "border-accent bg-accent/20 text-white"
                     : "border-white/[0.06] text-zinc-300 hover:border-accent/40"
@@ -294,8 +296,9 @@ export default function StudioPage() {
           })}
           <button
             type="button"
+            disabled={busy}
             onClick={resetConceptSelection}
-            className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-500 transition hover:border-accent/40 hover:text-zinc-300"
+            className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-500 transition hover:border-accent/40 hover:text-zinc-300 disabled:opacity-50"
           >
             Reset
           </button>
@@ -309,9 +312,15 @@ export default function StudioPage() {
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-display text-xl text-white">Panel assembling</h2>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs uppercase tracking-wide text-zinc-500">
+            <span
+              className={`text-xs uppercase tracking-wide ${
+                busy ? "text-zinc-700" : "text-zinc-500"
+              }`}
+            >
               Size{" "}
-              <span className="font-mono normal-case text-zinc-600">[/]</span>
+              <span className={`font-mono normal-case ${busy ? "text-zinc-700" : "text-zinc-600"}`}>
+                [/]
+              </span>
             </span>
             {PANEL_SIZES.map((n) => {
               const active = panelSize === n;
@@ -319,8 +328,9 @@ export default function StudioPage() {
                 <button
                   key={n}
                   type="button"
+                  disabled={busy}
                   onClick={() => setPanelSize(n)}
-                  className={`rounded-full border px-3 py-1 text-xs transition ${
+                  className={`rounded-full border px-3 py-1 text-xs transition disabled:opacity-50 ${
                     active
                       ? "border-accent bg-accent/20 text-white"
                       : "border-white/[0.06] text-zinc-300 hover:border-accent/40"
@@ -332,8 +342,9 @@ export default function StudioPage() {
             })}
             <button
               type="button"
+              disabled={busy}
               onClick={resetPanelSize}
-              className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-500 transition hover:border-accent/40 hover:text-zinc-300"
+              className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-500 transition hover:border-accent/40 hover:text-zinc-300 disabled:opacity-50"
             >
               Reset
             </button>
