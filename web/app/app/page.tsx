@@ -179,6 +179,7 @@ export default function StudioPage() {
 
 
   async function downloadScorecardCsv() {
+    if (busy) return;
     try {
       if (mode === "live") {
         const res = await fetch(`${apiBase()}/scorecard.csv`);
@@ -428,8 +429,9 @@ export default function StudioPage() {
             </div>
             <button
               type="button"
+              disabled={busy}
               onClick={downloadScorecardCsv}
-              className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-300 hover:border-accent hover:text-accent"
+              className="rounded-full border border-white/[0.06] px-3 py-1 text-xs text-zinc-300 hover:border-accent hover:text-accent disabled:opacity-50"
             >
               Download CSV
             </button>
